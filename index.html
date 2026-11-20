@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nourriture Express – Vos courses en ligne</title>
+  <meta name="description" content="Commandez fruits, légumes, pain, viande, produits laitiers et épicerie en ligne. Livraison rapide.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="topbar">
+    <a class="brand" href="#top" aria-label="Nourriture Express, accueil">
+      <span class="brand-icon" aria-hidden="true">🥬</span>
+      <span>Nourriture<b>Express</b></span>
+    </a>
+    <input type="search" id="search" placeholder="Rechercher un produit…" aria-label="Rechercher un produit" autocomplete="off">
+    <button id="cartBtn" class="cart-btn" type="button" aria-label="Ouvrir le panier">
+      <span aria-hidden="true">🛒</span>
+      <span class="cart-label">Panier</span>
+      <span id="cartCount" class="cart-count">0</span>
+    </button>
+  </header>
+
+  <section class="hero" id="top">
+    <div class="hero-text">
+      <h1>Vos courses, livrées chez vous.</h1>
+      <p>Produits frais, pain du jour et essentiels du quotidien. Livraison gratuite dès <strong id="freeFrom">200 MAD</strong> d'achat.</p>
+      <a class="btn btn-primary" href="#catalogue">Voir les produits</a>
+    </div>
+    <div class="hero-art" aria-hidden="true">🍎 🥖 🧀 🍅 🥛</div>
+  </section>
+
+  <main id="catalogue">
+    <div id="chips" class="chips" role="tablist" aria-label="Catégories"></div>
+    <p id="resultInfo" class="result-info" aria-live="polite"></p>
+    <div id="grid" class="grid"></div>
+  </main>
+
+  <footer class="footer">
+    <p>© <span id="year"></span> Nourriture Express · Projet démo hébergé sur GitHub Pages</p>
+  </footer>
+
+  <div id="overlay" class="overlay" hidden></div>
+
+  <!-- Panier -->
+  <aside id="drawer" class="drawer" aria-hidden="true" aria-label="Panier">
+    <div class="drawer-head">
+      <h2>Mon panier</h2>
+      <button id="closeCart" class="icon-btn" type="button" aria-label="Fermer le panier">✕</button>
+    </div>
+    <div id="cartItems" class="cart-items"></div>
+    <div class="drawer-foot">
+      <dl class="totals">
+        <div><dt>Sous-total</dt><dd id="subtotal">0,00 MAD</dd></div>
+        <div><dt>Livraison</dt><dd id="delivery">0,00 MAD</dd></div>
+        <div class="total"><dt>Total</dt><dd id="total">0,00 MAD</dd></div>
+      </dl>
+      <p id="freeHint" class="hint"></p>
+      <button id="checkoutBtn" class="btn btn-primary btn-block" type="button" disabled>Passer la commande</button>
+      <button id="clearBtn" class="btn btn-link" type="button">Vider le panier</button>
+    </div>
+  </aside>
+
+  <!-- Commande -->
+  <div id="modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" hidden>
+    <div class="modal-box">
+      <button id="closeModal" class="icon-btn modal-close" type="button" aria-label="Fermer">✕</button>
+
+      <div id="checkoutView">
+        <h2 id="modalTitle">Finaliser la commande</h2>
+        <form id="orderForm" novalidate>
+          <label>Nom complet
+            <input name="name" type="text" required minlength="3" maxlength="80" autocomplete="name">
+          </label>
+          <label>Téléphone
+            <input name="phone" type="tel" required pattern="[0-9+ ]{8,16}" maxlength="16" autocomplete="tel" placeholder="06 12 34 56 78">
+          </label>
+          <label>Ville
+            <input name="city" type="text" required maxlength="60" autocomplete="address-level2">
+          </label>
+          <label>Adresse de livraison
+            <textarea name="address" rows="2" required maxlength="200" autocomplete="street-address"></textarea>
+          </label>
+          <label>Paiement
+            <select name="payment">
+              <option>Paiement à la livraison</option>
+              <option>Carte bancaire à la livraison</option>
+            </select>
+          </label>
+          <p id="formError" class="form-error" role="alert"></p>
+          <button class="btn btn-primary btn-block" type="submit">Confirmer la commande</button>
+        </form>
+      </div>
+
+      <div id="doneView" hidden>
+        <h2>Merci pour votre commande ! 🎉</h2>
+        <p>Numéro de commande : <strong id="orderNumber"></strong></p>
+        <pre id="orderSummary" class="summary"></pre>
+        <a id="waBtn" class="btn btn-primary btn-block" target="_blank" rel="noopener noreferrer">Envoyer ma commande par WhatsApp</a>
+        <button id="doneClose" class="btn btn-link" type="button">Fermer</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
